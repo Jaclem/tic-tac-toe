@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+*,
+html,
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+  font-family: 'Righteous', cursive;
+}
+
+body {
+  height: 100vh;
+  background-color: rgb(235, 235, 235);
+}
+
+.menu-screen {
+  height: 100%;
+}
+
+.main-modal {
+  padding-top: 400px;
+  margin: auto;
+  text-align: center;
+  height: 100%;
+  width: 400px;
+}
+
+.main-modal h1 {
+  font-size: 75px;
+  color: #364f6b;
+  text-shadow: 4px 4px #fc5185;
+  margin-bottom: 10px;
+}
+
+.start-btn {
+  font-family: 'Righteous', cursive;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  background: linear-gradient(to right, #fc5185 0%, #364f6b 100%);
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  background: linear-gradient(to left, #fc5185 0%, #364f6b 100%);
+}
+
+/* .game-container {
+  display: grid;
+  margin: auto;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 290px;
+  gap: 10px;
+}
+
+.game-grid {
+    height: 90px;
+    width: 90px;
+    background-color: rgb(190, 190, 190);
+    cursor: pointer; 
+} */
+
+/* JavaSript Styles */
+
+.smooth-transition {
+  padding-top: 10px;
+  transition: all 1000ms ease-in-out;
+}
+
+.button-pop {
+  width: 100px;
+  margin: 20px;
+  font-family: 'Righteous', cursive;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  background: #fc5185;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+.button-pop:hover {
+  background-color: white;
+  color: #364f6b;
+}
