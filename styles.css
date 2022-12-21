@@ -29,6 +29,28 @@ body {
   width: 400px;
 }
 
+.button-pop {
+  width: 100px;
+  margin: 20px;
+  font-family: 'Righteous', cursive;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  background: #fc5185;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+.button-pop:hover {
+  background-color: white;
+  color: #364f6b;
+}
+
+.hidden-buttons {
+  display: none;
+}
+
 .main-modal h1 {
   font-size: 75px;
   color: #364f6b;
@@ -51,7 +73,35 @@ body {
   background: linear-gradient(to left, #fc5185 0%, #364f6b 100%);
 }
 
-/* .game-container {
+.main-game {
+  display: none;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 230px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 300px;
+  width: 100%;
+}
+
+
+
+
+
+/* JavaSript Styles */
+
+.smooth-transition {
+  padding-top: 10px;
+  transition: all 1000ms ease-in-out;
+}
+
+.visible {
+  display: block;
+}
+
+.game-container {
   display: grid;
   margin: auto;
   grid-template-rows: repeat(3, 1fr);
@@ -66,29 +116,4 @@ body {
     width: 90px;
     background-color: rgb(190, 190, 190);
     cursor: pointer; 
-} */
-
-/* JavaSript Styles */
-
-.smooth-transition {
-  padding-top: 10px;
-  transition: all 1000ms ease-in-out;
-}
-
-.button-pop {
-  width: 100px;
-  margin: 20px;
-  font-family: 'Righteous', cursive;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  color: white;
-  background: #fc5185;
-  transition: all .2s ease-in-out;
-  cursor: pointer;
-}
-
-.button-pop:hover {
-  background-color: white;
-  color: #364f6b;
 }

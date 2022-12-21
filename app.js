@@ -1,30 +1,39 @@
-function transitionStage(){
-  const mainScreen = document.getElementById('main-modal');
+const mainScreen = document.getElementById('main-modal');
+const addAI = document.getElementById('add-ai');
+const addPlayers = document.getElementById('add-players');
+
+const transitionStage = () => {
   const startBtn = document.getElementById('start-btn');
+  const hiddenBtns = document.getElementById('hidden-buttons');
 
   mainScreen.classList.add('smooth-transition');
   startBtn.remove();
-
-  const addAI = document.createElement('button');
-  const addPlayers = document.createElement('button');
-
-  mainScreen.appendChild(addAI);
-  mainScreen.appendChild(addPlayers);
-
-  addAI.classList.add('button-pop');
-  addPlayers.classList.add('button-pop');
-
-  addAI.innerHTML = "AI Bot";
-  addPlayers.innerHTML = "Two Players";
+  hiddenBtns.classList.add('visible');
 }
 
-function startGame() {
-  transitionStage();
-  
 
-  // gameBoard();
+function startWithAI() {
+  createGame();
+
+}
+
+function createGame() {
+  const mainGame = document.getElementById('main-game');
+  const gameContainer = document.createElement('div');
+  gameContainer.classList.add('game-container');
+  mainGame.classList.add('visible');
+
+  mainGame.appendChild(gameContainer);
+
+  for(let i = 0; i <= 8; i++){
+    const divs = document.createElement('div');
+    divs.classList.add('game-grid');
+    gameContainer.appendChild(divs);
+  }
 }
 
 const gameBoard = () => {
 
 }
+
+addAI.addEventListener('click', ()=> {startWithAI();});

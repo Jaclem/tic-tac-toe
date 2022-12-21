@@ -16,12 +16,18 @@
 
     <div class="main-modal" id="main-modal">
       <h1>Tic Tac Toe</h1>
-      <button class="start-btn" id="start-btn" onclick="startGame()">Start Game</button>
+      <button class="start-btn" id="start-btn" onclick="transitionStage()">Start Game</button>
+
+
+      <div class="hidden-buttons" id="hidden-buttons">
+        <button class="button-pop" id="add-ai">AI Bot</button>
+        <button class="button-pop" id="Two Players">Two Players</button>
+      </div>
     </div>
 
   </nav>
 
-  <main>
+  <main class="main-game" id="main-game">
 
 
 
