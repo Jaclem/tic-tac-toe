@@ -87,9 +87,6 @@ body {
 }
 
 
-
-
-
 /* JavaSript Styles */
 
 .smooth-transition {
@@ -112,8 +109,11 @@ body {
 }
 
 .game-grid {
-    height: 90px;
-    width: 90px;
-    background-color: rgb(190, 190, 190);
-    cursor: pointer; 
+  height: 90px;
+  width: 90px;
+  background-color: rgb(190, 190, 190);
+  font-size: 70px;
+  color: #364f6b;
+  cursor: pointer; 
 }
+
