@@ -12,14 +12,23 @@ const transitionStage = () => {
 
   // user clicks AI Bot button to add a bot that plays them in Tic Tac Toe
   function startWithAI() {
-    const gridItem = document.querySelectorAll('.game-grid');
     createGame();
+
+    const gridItem = document.querySelectorAll('.game-grid');
+    let playerChosenSquare;
+    let arr = [];
   
     gridItem.forEach(item => {
-      item.addEventListener('click', ()=> {
+      item.addEventListener('click', (e)=> {
         item.innerHTML = "X"
+        playerChosenSquare = e.target;
+        arr.push(playerChosenSquare);
+
+        gameBoard();
       });
     });
+
+    return {gridItem};
   }
 
   // Adds visibility to the mainGame element allowing you to interact with the game board
@@ -28,10 +37,28 @@ const transitionStage = () => {
     mainGame.classList.add('visible');
   }
 
-  // Does nothing yet
+  // grabs an array from the startWithAI function and logs it to console
   const gameBoard = () => {
+    // console.log(nodeItem);
+    const arr = [];
+    // console.log(arr[0]);
 
+    const x = startWithAI();
+    const gridValues = Object.values(x);
+    const testList = gridValues[0];
+
+    testList.forEach(item => {
+      // let testIf = item.outerText;
+
+      if(item.textContent.includes('X','O')){
+        console.log(item[0]);
+      }
+     
+    });
+    
   }
+
+  
 
   addAI.addEventListener('click', ()=> {startWithAI();});
 }
