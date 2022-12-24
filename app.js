@@ -1,67 +1,53 @@
-const transitionStage = () => {
-  const startBtn = document.getElementById('start-btn');
-  const hiddenBtns = document.getElementById('hidden-buttons');
-  const mainScreen = document.getElementById('main-modal');
+
+const gameBoard = () => {
+  const mainScreen = document.getElementById('main-screen');
   const addAI = document.getElementById('add-ai');
   const addPlayers = document.getElementById('add-players');
 
-  // Adds a smooth transition to the main screen when "Start Game" button is clicked
-  mainScreen.classList.add('smooth-transition');
-  startBtn.remove();
-  hiddenBtns.classList.add('visible');
+  let clicked = false;
 
-  // user clicks AI Bot button to add a bot that plays them in Tic Tac Toe
-  function startWithAI() {
-    createGame();
+  addPlayers.addEventListener('click', () => {
 
-    const gridItem = document.querySelectorAll('.game-grid');
-    let playerChosenSquare;
-    let arr = [];
-  
-    gridItem.forEach(item => {
-      item.addEventListener('click', (e)=> {
-        item.innerHTML = "X"
-        playerChosenSquare = e.target;
-        arr.push(playerChosenSquare);
-
-        gameBoard();
-      });
-    });
-
-    return {gridItem};
-  }
-
-  // Adds visibility to the mainGame element allowing you to interact with the game board
-  function createGame() {
-    const mainGame = document.getElementById('main-game');
-    mainGame.classList.add('visible');
-  }
-
-  // grabs an array from the startWithAI function and logs it to console
-  const gameBoard = () => {
-    // console.log(nodeItem);
-    const arr = [];
-    // console.log(arr[0]);
-
-    const x = startWithAI();
-    const gridValues = Object.values(x);
-    const testList = gridValues[0];
-
-    testList.forEach(item => {
-      // let testIf = item.outerText;
-
-      if(item.textContent.includes('X','O')){
-        console.log(item[0]);
-      }
-     
-    });
+    if(!clicked){
+      addForm();
+    }
     
+    clicked = true;
+  });
+  
+  function addForm() {
+    const form = document.createElement('form');
+    const frstHeader = document.createElement('label');
+    const scndHeader = document.createElement('label');
+    const frstPlayer = document.createElement('input');
+    const scndPlayer = document.createElement('input');
+    const addBtn = document.createElement('button');
+
+    form.className = 'player-form';
+    frstHeader.className = 'name-label';
+    scndHeader.className = 'name-label';
+    frstPlayer.className = 'player-input';
+    scndPlayer.className = 'player-input';
+    addBtn.className = 'add-players';
+
+    frstHeader.textContent = 'Player 1';
+    scndHeader.textContent = 'Player 2';
+    addBtn.textContent = 'Add';
+
+    form.append(frstHeader, frstPlayer, scndHeader, scndPlayer, addBtn);
+    mainScreen.appendChild(form);
+
+    return {form};
   }
 
-  
 
-  addAI.addEventListener('click', ()=> {startWithAI();});
+
 }
+
+gameBoard();
+
+
+
 
 
 
