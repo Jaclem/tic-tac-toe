@@ -1,5 +1,6 @@
 
 const gameBoard = () => {
+  const gameContainer = document.getElementById('game-container');
   const mainScreen = document.getElementById('main-screen');
   const addAI = document.getElementById('add-ai');
   const addPlayers = document.getElementById('add-players');
@@ -8,6 +9,9 @@ const gameBoard = () => {
   let clicked = false;
 
   const playerNames = (player1, player2) => {
+    player1,
+    player2
+
     return {
       test() {
         console.log(`${player1} ${player2}`);
@@ -23,7 +27,7 @@ const gameBoard = () => {
     const frstPlayer = document.createElement('input');
     const scndPlayer = document.createElement('input');
     const addBtn = document.createElement('button');
-
+    let players;
 
     form.className = 'player-form';
     frstHeader.className = 'name-label';
@@ -44,15 +48,32 @@ const gameBoard = () => {
       mainScreen.appendChild(form);
     }
 
+    // adds the user input to the playerNames factory function and closes modal
     addBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const players = playerNames(frstPlayer.value, scndPlayer.value);
+      players = playerNames(frstPlayer.value, scndPlayer.value);
       players.test();
       form.remove();
+      createGame.divCreate();
       clicked = false;
     })
 
     return {createForm};
+  })();
+
+  // module that creates the div game
+  const createGame = (() => {
+    
+    const divCreate = () => {
+      for(let i = 0; i < 9; i++) {
+        const gameDivs = document.createElement('div');
+        gameDivs.className = 'game-grid';
+        gameDivs.setAttribute('id', 'game-grid');
+        gameContainer.append(gameDivs);
+      }
+    }
+
+    return {divCreate};
   })();
 
   // Event Listeners //
@@ -69,6 +90,7 @@ const gameBoard = () => {
       form.remove();
       clicked = false;
     }
+
   });
 
 
