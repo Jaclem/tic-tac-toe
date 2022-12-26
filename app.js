@@ -88,20 +88,26 @@ const displayController = () => {
   const playGame = (() => {
     const playWithTwo = () => {
       const grid = document.querySelectorAll('.game-grid');
+      let arr = [];
 
       grid.forEach(item => {
+
         item.addEventListener('click', (e) => {
-          if (everyOtherClick == false){
+          let pathValue = e.path[0].attributes[2].value;
+
+          if (everyOtherClick == false && !arr.includes(pathValue)){
             item.textContent = 'X';
-            console.log(e.path[0].attributes[2].value);
+            arr.push(pathValue);
             everyOtherClick = true;
-          }else if (everyOtherClick == true){
+          }else if (everyOtherClick == true && !arr.includes(pathValue)){
             item.textContent = 'O';
+            arr.push(pathValue);
             everyOtherClick = false;
-            console.log(item.value);
           }
         });
       });
+
+      
     }
 
     return {playWithTwo};
