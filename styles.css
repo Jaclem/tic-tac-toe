@@ -111,6 +111,7 @@ body {
 .game-grid {
   height: 90px;
   width: 90px;
+  text-align: center;
   background-color: rgb(190, 190, 190);
   font-size: 70px;
   color: #364f6b;

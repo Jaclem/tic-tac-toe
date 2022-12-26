@@ -1,12 +1,16 @@
 
-const gameBoard = () => {
-  const gameContainer = document.getElementById('game-container');
+const displayController = () => {
   const mainScreen = document.getElementById('main-screen');
   const addAI = document.getElementById('add-ai');
   const addPlayers = document.getElementById('add-players');
-  const addBtn = document.getElementById('add-names');
 
   let clicked = false;
+  let everyOtherClick = false;
+  let gameBoard = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]
 
   const playerNames = (player1, player2) => {
     player1,
@@ -36,8 +40,8 @@ const gameBoard = () => {
     scndPlayer.className = 'player-input';
     addBtn.className = 'add-players';
 
-    frstHeader.textContent = 'Player 1';
-    scndHeader.textContent = 'Player 2';
+    frstHeader.textContent = 'Player 1 - X';
+    scndHeader.textContent = 'Player 2 - O';
     addBtn.textContent = 'Add';
     
     addBtn.setAttribute('id', 'add-names');
@@ -63,17 +67,44 @@ const gameBoard = () => {
 
   // module that creates the div game
   const createGame = (() => {
-    
     const divCreate = () => {
+      const gameContainer = document.createElement('game-container');
+      gameContainer.className = 'game-container';
+      document.body.appendChild(gameContainer);
+
       for(let i = 0; i < 9; i++) {
         const gameDivs = document.createElement('div');
         gameDivs.className = 'game-grid';
         gameDivs.setAttribute('id', 'game-grid');
+        gameDivs.setAttribute('value', i);
         gameContainer.append(gameDivs);
       }
+      playGame.playWithTwo();
+    }
+  
+    return {divCreate};
+  })();
+
+  const playGame = (() => {
+    const playWithTwo = () => {
+      const grid = document.querySelectorAll('.game-grid');
+
+      grid.forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (everyOtherClick == false){
+            item.textContent = 'X';
+            console.log(e.path[0].attributes[2].value);
+            everyOtherClick = true;
+          }else if (everyOtherClick == true){
+            item.textContent = 'O';
+            everyOtherClick = false;
+            console.log(item.value);
+          }
+        });
+      });
     }
 
-    return {divCreate};
+    return {playWithTwo};
   })();
 
   // Event Listeners //
@@ -82,26 +113,30 @@ const gameBoard = () => {
   // if it has been clicked it removes the form
   addPlayers.addEventListener('click', () => {
     const form = document.querySelector('.player-form');
+    const container = document.querySelector('.game-container');
+
 
     if(!clicked){
       addForm.createForm();
       clicked = true;
-    } else {
+    } else if(clicked) {
       form.remove();
       clicked = false;
     }
-
+    
+    if(Boolean(container) == true){
+      container.remove();
+    }
   });
 
-
-
-  // addBtn.addEventListener('click', (e) => {
-  //   console.log()
-  // })
-
+  return {
+    playerNames,
+    addForm,
+    createGame
+  }
 }
 
-gameBoard();
+displayController();
 
 
 
