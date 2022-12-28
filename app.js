@@ -6,6 +6,7 @@ const displayController = () => {
 
   let clicked = false;
   let everyOtherClick = false;
+  let gameDivs;
   let gameBoard = [
     [0, 0, 0],
     [0, 0, 0],
@@ -31,6 +32,7 @@ const displayController = () => {
     const frstPlayer = document.createElement('input');
     const scndPlayer = document.createElement('input');
     const addBtn = document.createElement('button');
+
     let players;
 
     form.className = 'player-form';
@@ -68,50 +70,51 @@ const displayController = () => {
   // module that creates the div game
   const createGame = (() => {
     const divCreate = () => {
-      const gameContainer = document.createElement('game-container');
-      gameContainer.className = 'game-container';
-      document.body.appendChild(gameContainer);
+      const main = document.getElementById('main');
+      const grid = document.querySelectorAll('.grid');
 
-      for(let i = 0; i < 9; i++) {
-        const gameDivs = document.createElement('div');
-        gameDivs.className = 'game-grid';
-        gameDivs.setAttribute('id', 'game-grid');
-        gameDivs.setAttribute('value', i);
-        gameContainer.append(gameDivs);
-      }
-      playGame.playWithTwo();
+      main.classList.add('game-container');
+
+      grid.forEach(item => {
+        item.classList.add('game-grid');
+      })
+      
+      playWithTwo();
     }
-  
+
     return {divCreate};
   })();
 
-  const playGame = (() => {
-    const playWithTwo = () => {
-      const grid = document.querySelectorAll('.game-grid');
-      let arr = [];
+  function playWithTwo() {
+    const grid = document.querySelectorAll('.game-grid');
+    let arr = [];
 
-      grid.forEach(item => {
+    grid.forEach(item => {
+      item.addEventListener('click', (e) => {
+        let pathValue = e.path[0].attributes[1].textContent;
+        let pathId = e.path[0].attributes[2].textContent;
+        let parsedValue = parseInt(pathValue);
+        let parsedId = parseInt(pathId);
+        let concat = `${parsedValue} ${parsedId}`;
+        let x = 1;
+        let o = 2;
+       
+        if (everyOtherClick == false && !arr.includes(concat)){
+          item.textContent = 'X';
+          gameBoard[parsedId][parsedValue] = x;
+          everyOtherClick = true;
 
-        item.addEventListener('click', (e) => {
-          let pathValue = e.path[0].attributes[2].value;
+        } else if (everyOtherClick == true && !arr.includes(concat)){
+          item.textContent = 'O';
+          gameBoard[parsedId][parsedValue] = o;
+          everyOtherClick = false;
+        }
 
-          if (everyOtherClick == false && !arr.includes(pathValue)){
-            item.textContent = 'X';
-            arr.push(pathValue);
-            everyOtherClick = true;
-          }else if (everyOtherClick == true && !arr.includes(pathValue)){
-            item.textContent = 'O';
-            arr.push(pathValue);
-            everyOtherClick = false;
-          }
-        });
+        arr.push(concat);
+
       });
-
-      
-    }
-
-    return {playWithTwo};
-  })();
+    });
+  }
 
   // Event Listeners //
 
