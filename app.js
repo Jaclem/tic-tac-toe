@@ -27,12 +27,24 @@ const displayController = () => {
       [2,4,6]
     ];
 
-    // console.log(testArr);
-
     const endGameDecision = () => {
-      for (let i = 0; i < winConditions.length; i++) {
-        console.log(scoreBoard[i]);
-      } 
+      winConditions.forEach(arr => {
+        if(
+          scoreBoard[arr[0]] === 'X' &&
+          scoreBoard[arr[1]] === 'X' &&
+          scoreBoard[arr[2]] === 'X'
+        ){
+          console.log("X is there");
+
+        } else if(
+          scoreBoard[arr[0]] === 'O' &&
+          scoreBoard[arr[1]] === 'O' &&
+          scoreBoard[arr[2]] === 'O'
+        ) {
+          console.log("O is there");
+
+        }
+      });
     }
 
 
@@ -138,7 +150,6 @@ const displayController = () => {
           everyOtherClick = false;
         }
 
-        console.log(gameBoard.scoreBoard);
         gameBoard.endGameDecision();
       });
     });
