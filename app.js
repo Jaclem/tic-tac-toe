@@ -6,12 +6,43 @@ const displayController = () => {
 
   let clicked = false;
   let everyOtherClick = false;
-  let gameDivs;
-  let gameBoard = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ]
+
+  const gameBoard = (() => {
+    endGame: false;
+
+    let scoreBoard = [
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ];
+
+    const winConditions = [
+      [0,1,2], // top row
+      [3,4,5], // middle row
+      [6,7,8], // bottom row
+      [0,3,6], // left column
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ];
+
+    // console.log(testArr);
+
+    const endGameDecision = () => {
+      for (let i = 0; i < winConditions.length; i++) {
+        console.log(scoreBoard[i]);
+      } 
+    }
+
+
+    return {
+      scoreBoard,
+      endGameDecision
+    };
+  
+  })();
+
 
   const playerNames = (player1, player2) => {
     player1,
@@ -92,26 +123,23 @@ const displayController = () => {
     grid.forEach(item => {
       item.addEventListener('click', (e) => {
         let pathValue = e.path[0].attributes[1].textContent;
-        let pathId = e.path[0].attributes[2].textContent;
         let parsedValue = parseInt(pathValue);
-        let parsedId = parseInt(pathId);
-        let concat = `${parsedValue} ${parsedId}`;
-        let x = 1;
-        let o = 2;
        
-        if (everyOtherClick == false && !arr.includes(concat)){
+        if (everyOtherClick == false && !arr.includes(parsedValue)){
           item.textContent = 'X';
-          gameBoard[parsedId][parsedValue] = x;
+          gameBoard.scoreBoard[parsedValue] = 'X';
+          arr.push(parsedValue);
           everyOtherClick = true;
 
-        } else if (everyOtherClick == true && !arr.includes(concat)){
+        } else if (everyOtherClick == true && !arr.includes(parsedValue)){
           item.textContent = 'O';
-          gameBoard[parsedId][parsedValue] = o;
+          gameBoard.scoreBoard[parsedValue] = 'O';
+          arr.push(parsedValue);
           everyOtherClick = false;
         }
 
-        arr.push(concat);
-
+        console.log(gameBoard.scoreBoard);
+        gameBoard.endGameDecision();
       });
     });
   }
@@ -137,12 +165,6 @@ const displayController = () => {
       container.remove();
     }
   });
-
-  return {
-    playerNames,
-    addForm,
-    createGame
-  }
 }
 
 displayController();
