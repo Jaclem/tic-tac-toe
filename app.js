@@ -3,69 +3,15 @@ const displayController = () => {
   const mainScreen = document.getElementById('main-screen');
   const addAI = document.getElementById('add-ai');
   const addPlayers = document.getElementById('add-players');
-
+  
   let clicked = false;
   let everyOtherClick = false;
-
-  const gameBoard = (() => {
-    endGame: false;
-
-    let scoreBoard = [
-      '', '', '',
-      '', '', '',
-      '', '', ''
-    ];
-
-    const winConditions = [
-      [0,1,2], // top row
-      [3,4,5], // middle row
-      [6,7,8], // bottom row
-      [0,3,6], // left column
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
-    ];
-
-    const endGameDecision = () => {
-      winConditions.forEach(arr => {
-        if(
-          scoreBoard[arr[0]] === 'X' &&
-          scoreBoard[arr[1]] === 'X' &&
-          scoreBoard[arr[2]] === 'X'
-        ){
-          console.log("X is there");
-
-        } else if(
-          scoreBoard[arr[0]] === 'O' &&
-          scoreBoard[arr[1]] === 'O' &&
-          scoreBoard[arr[2]] === 'O'
-        ) {
-          console.log("O is there");
-
-        }
-      });
-    }
-
-
-    return {
-      scoreBoard,
-      endGameDecision
-    };
   
-  })();
-
-
   const playerNames = (player1, player2) => {
-    player1,
-    player2
-
-    return {
-      test() {
-        console.log(`${player1} ${player2}`);
-      }
-      
-    }
+    return({
+      one: player1,
+      two: player2
+    })
   }
   
   const addForm = (() => {
@@ -75,7 +21,7 @@ const displayController = () => {
     const frstPlayer = document.createElement('input');
     const scndPlayer = document.createElement('input');
     const addBtn = document.createElement('button');
-
+    
     let players;
 
     form.className = 'player-form';
@@ -101,18 +47,67 @@ const displayController = () => {
     addBtn.addEventListener('click', (e) => {
       e.preventDefault();
       players = playerNames(frstPlayer.value, scndPlayer.value);
-      players.test();
       form.remove();
-      createGame.divCreate();
+      createGame.divCreate(players);
       clicked = false;
     })
 
     return {createForm};
   })();
 
+  const gameBoard = (() => {
+    const resetBtn = document.getElementById('reset-btn');
+    endGame: false;
+
+    let scoreBoard = [
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ];
+
+    const winConditions = [
+      [0,1,2], 
+      [3,4,5], 
+      [6,7,8], 
+      [0,3,6], 
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ];
+
+    const endGameDecision = (players) => {
+      
+      winConditions.forEach(arr => {
+        if(
+          scoreBoard[arr[0]] === 'X' &&
+          scoreBoard[arr[1]] === 'X' &&
+          scoreBoard[arr[2]] === 'X'
+        ){
+          console.log(`${players.one} Wins!`);
+
+        } else if(
+          scoreBoard[arr[0]] === 'O' &&
+          scoreBoard[arr[1]] === 'O' &&
+          scoreBoard[arr[2]] === 'O'
+        ) {
+          console.log(`${players.one} Wins!`);
+
+        }
+      });
+    }
+
+
+    return {
+      scoreBoard,
+      endGameDecision
+    };
+  
+  })();
+
   // module that creates the div game
   const createGame = (() => {
-    const divCreate = () => {
+    const divCreate = (players) => {
       const main = document.getElementById('main');
       const grid = document.querySelectorAll('.grid');
 
@@ -122,13 +117,13 @@ const displayController = () => {
         item.classList.add('game-grid');
       })
       
-      playWithTwo();
+      playWithTwo(players);
     }
 
     return {divCreate};
   })();
 
-  function playWithTwo() {
+  function playWithTwo(players) {
     const grid = document.querySelectorAll('.game-grid');
     let arr = [];
 
@@ -150,7 +145,7 @@ const displayController = () => {
           everyOtherClick = false;
         }
 
-        gameBoard.endGameDecision();
+        gameBoard.endGameDecision(players);
       });
     });
   }
