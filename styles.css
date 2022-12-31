@@ -118,14 +118,3 @@ body {
   cursor: pointer; 
 }
 
-.reset-btn {
-  display: none;
-  background-color:#fc5185;
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  color: white;
-  font-weight: 700;
-  border-radius: 5px;
-}
-

@@ -13,6 +13,55 @@ const displayController = () => {
       two: player2
     })
   }
+
+  const gameBoard = (() => {
+    const winner = document.getElementById('winner');
+
+    let scoreBoard = [
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ];
+
+    const winConditions = [
+      [0,1,2], 
+      [3,4,5], 
+      [6,7,8], 
+      [0,3,6], 
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ];
+
+    const endGameDecision = (players) => {
+      
+      winConditions.forEach(arr => {
+        if(
+          scoreBoard[arr[0]] === 'X' &&
+          scoreBoard[arr[1]] === 'X' &&
+          scoreBoard[arr[2]] === 'X'
+        ){
+          winner.textContent = `${players.one} Wins!`;
+
+        } else if(
+          scoreBoard[arr[0]] === 'O' &&
+          scoreBoard[arr[1]] === 'O' &&
+          scoreBoard[arr[2]] === 'O'
+        ) {
+          winner.textContent = `${players.two} Wins!`;
+
+        }
+      });
+    }
+
+
+    return {
+      scoreBoard,
+      endGameDecision
+    };
+  
+  })();
   
   const addForm = (() => {
     const form = document.createElement('form');
@@ -55,55 +104,7 @@ const displayController = () => {
     return {createForm};
   })();
 
-  const gameBoard = (() => {
-    const resetBtn = document.getElementById('reset-btn');
-    endGame: false;
 
-    let scoreBoard = [
-      '', '', '',
-      '', '', '',
-      '', '', ''
-    ];
-
-    const winConditions = [
-      [0,1,2], 
-      [3,4,5], 
-      [6,7,8], 
-      [0,3,6], 
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
-    ];
-
-    const endGameDecision = (players) => {
-      
-      winConditions.forEach(arr => {
-        if(
-          scoreBoard[arr[0]] === 'X' &&
-          scoreBoard[arr[1]] === 'X' &&
-          scoreBoard[arr[2]] === 'X'
-        ){
-          console.log(`${players.one} Wins!`);
-
-        } else if(
-          scoreBoard[arr[0]] === 'O' &&
-          scoreBoard[arr[1]] === 'O' &&
-          scoreBoard[arr[2]] === 'O'
-        ) {
-          console.log(`${players.one} Wins!`);
-
-        }
-      });
-    }
-
-
-    return {
-      scoreBoard,
-      endGameDecision
-    };
-  
-  })();
 
   // module that creates the div game
   const createGame = (() => {
@@ -131,7 +132,7 @@ const displayController = () => {
       item.addEventListener('click', (e) => {
         let pathValue = e.path[0].attributes[1].textContent;
         let parsedValue = parseInt(pathValue);
-       
+        
         if (everyOtherClick == false && !arr.includes(parsedValue)){
           item.textContent = 'X';
           gameBoard.scoreBoard[parsedValue] = 'X';
@@ -143,7 +144,8 @@ const displayController = () => {
           gameBoard.scoreBoard[parsedValue] = 'O';
           arr.push(parsedValue);
           everyOtherClick = false;
-        }
+
+        } 
 
         gameBoard.endGameDecision(players);
       });
@@ -171,6 +173,7 @@ const displayController = () => {
       container.remove();
     }
   });
+
 }
 
 displayController();
